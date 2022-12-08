@@ -45,14 +45,14 @@ jobs:
         #projectPath:
           #- test-project
         #unityVersion:
-          #- 2019.2.11f1
+          #- 2022.1.17f1
           #- 2019.3.15f1
         targetPlatform:
           #- StandaloneOSX # Build a macOS standalone (Intel 64-bit).
           #- StandaloneWindows64 # Build a Windows 64-bit standalone.
           #- StandaloneLinux64 # Build a Linux 64-bit standalone.
           #- iOS # Build an iOS player.
-          #- Android # Build an Android .apk.
+          # Android # Build an Android .apk.
           - WebGL # WebGL.
           #          - StandaloneWindows # Build a Windows standalone.
           #          - WSAPlayer # Build an Windows Store Apps player.
@@ -88,13 +88,19 @@ jobs:
           #unityVersion: ${{ matrix.unityVersion }}
           targetPlatform: ${{ matrix.targetPlatform }}
           #customParameters: -profile SomeProfile -someBoolean -someValue exampleValue
+          #customParameters: -buildMethod BuildPlayer.BuildStandaloneWindows64
           #cloudRunnerCluster: ${{ matrix.cloudRunnerCluster }}
+          #-if: ${{ matrix.targetPlatform }} == 'StandaloneWindows64'
+          #then:
+          #buildMethod: BuildPlayer.BuildStandaloneWindows64
+          #buildsPath: build
+          
 
       ###########################
       #          Upload         #
       ###########################
       - uses: actions/upload-artifact@v2
         with:
-          name: Build (${{ matrix.targetPlatform }})
+          name: Build (${{ matrix.targetPlatform }}
           path: build/${{ matrix.targetPlatform }}
           retention-days: 14
